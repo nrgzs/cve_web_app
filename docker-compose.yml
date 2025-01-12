@@ -1,0 +1,102 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres_container
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pOstgres
+      POSTGRES_DB: cve_app
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin_container
+    ports:
+      - "8080:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
+
+
+
+# version: "3.8"
+
+# services:
+#   # Backend service
+#   server:
+#     build:
+#       context: ./server
+#       dockerfile: Dockerfile
+#     container_name: server_container
+#     ports:
+#       - "3005:3005"
+#     environment:
+#       - NODE_ENV=development
+#       - PORT=3005
+#       - DB_USER=postgres
+#       - DB_PASSWORD=pOstgres
+#       - DB_HOST=postgres
+#       - DB_PORT=5432
+#       - DB_NAME=cve_app
+#     volumes:
+#       - ./server:/app  # Mount the backend code for live reload
+#       - /app/node_modules  # Prevent overwriting node_modules inside container
+#     command: npm run dev 
+#     depends_on:
+#       - postgres
+
+#   # Frontend service
+#   front:
+#     build:
+#       context: ./front
+#       dockerfile: Dockerfile
+#     container_name: front_container
+#     ports:
+#       - "3000:3000"
+#     environment:
+#       - NODE_ENV=development
+#     volumes:
+#       - ./front:/src/app
+#       - /src/app/node_modules
+#     command: npm run dev 
+#     stdin_open: true
+#     tty: true
+
+#   # PostgreSQL database service
+#   postgres:
+#     image: postgres:latest
+#     container_name: postgres_container
+#     ports:
+#       - "5432:5432"
+#     environment:
+#       POSTGRES_USER: postgres
+#       POSTGRES_PASSWORD: pOstgres
+#       POSTGRES_DB: cve_app
+#     volumes:
+#       - postgres_data:/var/lib/postgresql/data
+
+#   # pgAdmin service
+#   pgadmin:
+#     image: dpage/pgadmin4
+#     container_name: pgadmin_container
+#     ports:
+#       - "8080:80"
+#     environment:
+#       PGADMIN_DEFAULT_EMAIL: admin@example.com
+#       PGADMIN_DEFAULT_PASSWORD: admin
+#     depends_on:
+#       - postgres
+
+# volumes:
+#   postgres_data:
+
+
+
