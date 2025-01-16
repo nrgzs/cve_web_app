@@ -7,7 +7,8 @@ export async function createPath(data) {
     const newPath = await Path.create({
       title: data.title,
       url: data.url,
-      parameters: data.parameters,  // parameters will be saved as JSON
+      parameters: data.parameters,
+      flagSearch:0  // parameters will be saved as JSON
     });
     return newPath;
   } catch (error) {

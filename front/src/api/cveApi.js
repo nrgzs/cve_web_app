@@ -4,29 +4,29 @@ export const cveApi = createApi({
   reducerPath: "cveApi",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3005/api" }), // Replace with your backend URL
   endpoints: (builder) => ({
-    getInitialCveDataByAppId: builder.query({
-      query: (appId) => `/getInitialCveData/${appId}`,
+    getInitialCveDataByAppId: builder.mutation({
+      query: (appId) => `/cve/getInitialCveData/${appId}`,
     }),
     getDynamicCveDataByAppId: builder.query({
-      query: (appId) => `/getDynamicCveData/${appId}`,
+      query: (appId) => `/cve/getDynamicCveData/${appId}`,
     }),
-    getCveDataForAllApps: builder.query({
-      query: () => `/getCveDataForAllApps`,
+    getCveDataForAllApps: builder.mutation({
+      query: () => `/cve/getCveDataForAllApps`,
     }),
-    initializeFetch: builder.query({
-      query: () => `/initializeFetch`,
+    initializeFetch: builder.mutation({
+      query: () => `/cve/initializeFetch`,
     }),
-    stopInitializeFetchService: builder.query({
-      query: () => `/stopInitializeFetchService`,
+    stopInitializeFetchService: builder.mutation({
+      query: () => `/cve/stopInitializeFetchService`,
     }),
   }),
 });
 
 export const {
-  useGetInitialCveDataByAppIdQuery,
+  useGetInitialCveDataByAppIdMutation,
   useGetDynamicCveDataByAppIdQuery,
-  useGetCveDataForAllAppsQuery,
+  useGetCveDataForAllAppsMutation,
 
-  useInitializeFetchQuery,
-  useStopInitializeFetchServiceQuery,
+  useInitializeFetchMutation,
+  useStopInitializeFetchServiceMutation,
 } = cveApi;

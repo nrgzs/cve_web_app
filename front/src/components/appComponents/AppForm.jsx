@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { useAddAppMutation } from '../../api/appApi.js';
 import styles from './styles/appStyle.module.css'; // Import CSS Module
+import { useGetDynamicCveDataByAppIdQuery } from '../../api/cveApi.js';
 const AppForm = () => {
     const [additionalLinks, setAdditionalLinks] = useState([]);
 
     const [addApp] = useAddAppMutation();
+   
+
+
   
     const handleAddLink = () => {
       setAdditionalLinks([
@@ -82,6 +86,7 @@ const AppForm = () => {
       }
   
       await addApp(appData);
+
   
       // Reset the form
       e.target.reset();

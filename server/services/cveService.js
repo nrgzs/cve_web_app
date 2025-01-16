@@ -97,19 +97,25 @@ export async function fetchveDataForAllApps() {
 
     for (let path of paths) {
       const pathUrl = handlePathUrl(path, app);
-
       // Fetch CVE data from the external API
-      await fetchInitialCveData(app.id, true);
-      await staticCrawl(app, pathUrl, regex, true); //app, url, regex=/CVE-\
-      await dynamicCrawl(app, pathUrl, regex, true);
+      let setAlert = path.flagSearch?true:false
+
+      await fetchInitialCveData(app.id, setAlert);
+      await staticCrawl(app, pathUrl, regex, setAlert); //app, url, regex=/CVE-\
+      await dynamicCrawl(app, pathUrl, regex, setAlert);
+      path.flagSearch += 1;
+      await path.save();
     }
     if (app.additionalLinks.length) {
       for (let path of app.additionalLinks) {
         const pathUrl = handlePathUrl(path, app);
+        let setAlert = path.flagSearch?true:false
 
         // Fetch CVE data from the external API
-        staticCrawl(app, pathUrl, regex, false); //app, url, regex=/CVE-\
-        dynamicCrawl(app, pathUrl, regex, false);
+        staticCrawl(app, pathUrl, regex, setAlert); //app, url, regex=/CVE-\
+        dynamicCrawl(app, pathUrl, regex, setAlert);
+        path.flagSearch += 1;
+      await path.save();
       }
     }
   }
