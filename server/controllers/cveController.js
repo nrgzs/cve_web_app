@@ -1,4 +1,5 @@
-import { fetchCveData, fetchInitialCveData } from "../services/cveService.js";
+import { stopCronHelper } from "../cron/cronHelper.js";
+import { fetchCveData, fetchDynamicCveData, fetchInitialCveData, fetchveDataForAllApps, initializeFetchService } from "../services/cveService.js";
 
 export const getCveData = async (req, res, next) => {
   try {
@@ -10,12 +11,52 @@ export const getCveData = async (req, res, next) => {
 };
 
 export const getInitialCveData = async (req, res, next) => {
-  const app = req.body;
-  console.log(app);
+  const { appId } = req.params;
+  console.log(appId);
   
   try {
-    const data = await fetchInitialCveData(app);
+    const data = await fetchInitialCveData(appId);
     res.status(200).json(data);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getDynamicCveData = async (req, res, next) => {
+  const { appId } = req.params;
+  console.log(appId);
+  
+  try {
+    const data = await fetchDynamicCveData(appId);
+    res.status(200).json(data);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getCveDataForAllApps = async (req, res, next) => {
+  try {
+    const data = await fetchveDataForAllApps();
+    res.status(200).json(data);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const initializeFetch = async (req, res, next) => {
+  try {
+    const data = await initializeFetchService();
+    res.status(200).json({"message":"Fetch service started"});
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+export const stopInitializeFetchService = async (req, res, next) => {
+  try {
+   stopCronHelper()
+    res.status(200).json({"message":"Fetch service Stopped"});
   } catch (error) {
     next(error);
   }
