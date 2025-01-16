@@ -35,6 +35,10 @@ const AdditionalLink = sequelize.define('AdditionalLink', {
     type: DataTypes.JSON, // Store parameters as JSON
     allowNull: true,
   },
+  flagSearch: {
+    type: DataTypes.INTEGER, 
+    allowNull: true,
+  },
 });
 
 // Defining associations

@@ -1,20 +1,20 @@
-import axios from "axios";
-import { saveCveToDatabase } from "../utils/saveCveToDb.js";
-import { Application } from "../models/applicationModel.js";
-import dynamicCrawl from "../utils/dynamicCrawl.js";
-import staticCrawl from "../utils/staticCrawl.js";
-import Path from "../models/pathModel.js";
-import handlePathUrl from "../utils/handlePathUrl.js";
-import { getApplications } from "./appService.js";
-import { cronHelper } from "../cron/cronHelper.js";
+import axios from 'axios';
+import { saveCveToDatabase } from '../utils/saveCveToDb.js';
+import { Application } from '../models/applicationModel.js';
+import dynamicCrawl from '../utils/dynamicCrawl.js';
+import staticCrawl from '../utils/staticCrawl.js';
+import Path from '../models/pathModel.js';
+import handlePathUrl from '../utils/handlePathUrl.js';
+import { getApplications } from './appService.js';
+import { cronHelper } from '../cron/cronHelper.js';
 
 export const fetchCveData = async () => {
   try {
     // const response = await axios.get("https://example-cve-api.com/data"); // Replace with actual API URL
-    return "fetch initial data";
+    return 'fetch initial data';
   } catch (error) {
-    console.error("Error fetching CVE data:", error.message);
-    throw new Error("Failed to fetch CVE data");
+    console.error('Error fetching CVE data:', error.message);
+    throw new Error('Failed to fetch CVE data');
   }
 };
 
@@ -36,16 +36,16 @@ export const fetchInitialCveData = async (appId, onAlert = false) => {
 
     if (data && data.cves) {
       // Save the fetched CVEs to the database
-      await saveCveToDatabase(data.cves, "shodan", app, onAlert);
+      await saveCveToDatabase(data.cves, 'shodan', app, onAlert);
 
       console.log(`CVE data saved for application: ${app.product}`);
       return data;
     } else {
-      throw new Error("No CVEs found for the provided CPE");
+      throw new Error('No CVEs found for the provided CPE');
     }
   } catch (error) {
-    console.error("Error fetching CVE data:", error.message);
-    throw new Error("Failed to fetch CVE data");
+    console.error('Error fetching CVE data:', error.message);
+    throw new Error('Failed to fetch CVE data');
   }
 };
 
@@ -82,8 +82,8 @@ export const fetchDynamicCveData = async (appId) => {
       }
     }
   } catch (error) {
-    console.error("Error fetching CVE data:", error.message);
-    throw new Error("Failed to fetch CVE data");
+    console.error('Error fetching CVE data:', error.message);
+    throw new Error('Failed to fetch CVE data');
   }
 };
 
@@ -98,7 +98,7 @@ export async function fetchveDataForAllApps() {
     for (let path of paths) {
       const pathUrl = handlePathUrl(path, app);
       // Fetch CVE data from the external API
-      let setAlert = path.flagSearch?true:false
+      let setAlert = path.flagSearch ? true : false;
 
       await fetchInitialCveData(app.id, setAlert);
       await staticCrawl(app, pathUrl, regex, setAlert); //app, url, regex=/CVE-\
@@ -109,18 +109,18 @@ export async function fetchveDataForAllApps() {
     if (app.additionalLinks.length) {
       for (let path of app.additionalLinks) {
         const pathUrl = handlePathUrl(path, app);
-        let setAlert = path.flagSearch?true:false
+        let setAlert = path.flagSearch ? true : false;
 
         // Fetch CVE data from the external API
         staticCrawl(app, pathUrl, regex, setAlert); //app, url, regex=/CVE-\
         dynamicCrawl(app, pathUrl, regex, setAlert);
         path.flagSearch += 1;
-      await path.save();
+        await path.save();
       }
     }
   }
 }
 
 export async function initializeFetchService() {
-  cronHelper(fetchveDataForAllApps)
+  cronHelper(fetchveDataForAllApps);
 }

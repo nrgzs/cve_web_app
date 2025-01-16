@@ -8,14 +8,16 @@ const AppList = () => {
 
   if (isLoading) return <Loader />;
   if (error) return <p>Error fetching apps.</p>;
-console.log(apps);
+  console.log(apps);
 
   return (
-    <ul>
-      {apps.map((app) => (
-        <AppItem key={app.id} app={app} />
-      ))}
-    </ul>
+    <div className="overflow-y-scroll h-44 border-b-2 border-indigo-200">
+      <ul className="flex flex-col space-y-4 p-4">
+        {apps.map((app) => (
+          <AppItem key={app.id} app={app} />
+        ))}
+      </ul>
+    </div>
   );
 };
 

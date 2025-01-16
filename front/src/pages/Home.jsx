@@ -9,14 +9,15 @@ import StopCveFetch from '../components/cveComponents/StopCveFetch.jsx';
 const Home = () => {
   return (
     <div>
-      <StartCveFetch/>
-      <StopCveFetch/>
+      <h1 className="text-3xl font-bold underline text-cyan-600">Hello world!</h1>
+      <StartCveFetch />
+      <StopCveFetch />
       <h1>App Manager</h1>
 
-      <AppForm/>
+      <AppForm />
       <AppList />
-      <PathForm/>
-      <PathList/>
+      <PathForm />
+      <PathList />
     </div>
   );
 };

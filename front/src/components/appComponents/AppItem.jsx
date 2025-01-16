@@ -9,11 +9,16 @@ const AppItem = ({ app }) => {
   };
 
   return (
-    <li>
-      <h2>{app.product}</h2>
-      <p>{app.vendor}</p>
-      <button onClick={handleDelete}>Delete</button>
-    </li>
+    <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+      <h2 className="text-xl font-semibold text-gray-800">{app.product}</h2>
+      <p className="text-gray-600">{app.vendor}</p>
+      <button
+        onClick={handleDelete}
+        className="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors duration-300"
+      >
+        Delete
+      </button>
+    </div>
   );
 };
 

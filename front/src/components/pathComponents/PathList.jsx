@@ -11,11 +11,13 @@ const PathList = () => {
 console.log(paths);
 
   return (
-    <ul>
+     <div className="overflow-y-scroll h-44 border-b-2 border-indigo-200">
+      <ul className="flex flex-col space-y-4 p-4">
       {paths.map((path) => (
         <PathItem key={path.id} path={path} />
       ))}
     </ul>
+    </div>
   );
 };
 

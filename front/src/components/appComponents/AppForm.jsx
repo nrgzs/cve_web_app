@@ -94,13 +94,19 @@ const AppForm = () => {
     };
   
     return (
-      <form className={styles.form} onSubmit={handleSubmit}>
-        <h2 className={styles.heading}>Add New App</h2>
-  
-        <div className={styles.inputGroup}>
-          <label className={styles.label} htmlFor="vendor">Vendor</label>
+      <form
+        className="min-w-full min mx-auto bg-white p-8 rounded-lg shadow-lg space-y-8"
+        onSubmit={handleSubmit}
+      >
+        <h2 className="text-3xl font-semibold text-gray-800">Add New App</h2>
+
+        {/* Vendor Input */}
+        <div className="flex flex-col space-y-3">
+          <label className="text-gray-700 font-medium" htmlFor="vendor">
+            Vendor
+          </label>
           <input
-            className={styles.input}
+            className="p-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
             type="text"
             id="vendor"
             name="vendor"
@@ -108,11 +114,14 @@ const AppForm = () => {
             required
           />
         </div>
-  
-        <div className={styles.inputGroup}>
-          <label className={styles.label} htmlFor="product">Product</label>
+
+        {/* Product Input */}
+        <div className="flex flex-col space-y-3">
+          <label className="text-gray-700 font-medium" htmlFor="product">
+            Product
+          </label>
           <input
-            className={styles.input}
+            className="p-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
             type="text"
             id="product"
             name="product"
@@ -120,11 +129,14 @@ const AppForm = () => {
             required
           />
         </div>
-  
-        <div className={styles.inputGroup}>
-          <label className={styles.label} htmlFor="version">Version</label>
+
+        {/* Version Input */}
+        <div className="flex flex-col space-y-3">
+          <label className="text-gray-700 font-medium" htmlFor="version">
+            Version
+          </label>
           <input
-            className={styles.input}
+            className="p-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
             type="text"
             id="version"
             name="version"
@@ -132,11 +144,14 @@ const AppForm = () => {
             required
           />
         </div>
-  
-        <div className={styles.inputGroup}>
-          <label className={styles.label} htmlFor="cpe_name">CPE Name</label>
+
+        {/* CPE Name Input */}
+        <div className="flex flex-col space-y-3">
+          <label className="text-gray-700 font-medium" htmlFor="cpe_name">
+            CPE Name
+          </label>
           <input
-            className={styles.input}
+            className="p-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
             type="text"
             id="cpe_name"
             name="cpe_name"
@@ -144,35 +159,61 @@ const AppForm = () => {
             required
           />
         </div>
-  
-        <div className={styles.additionalLinks}>
-          <h3 className={styles.subheading}>Additional Links (Optional)</h3>
+
+        {/* Additional Links Section */}
+        <div className="space-y-6">
+          <h3 className="text-2xl font-semibold text-gray-800">
+            Additional Links (Optional)
+          </h3>
           {additionalLinks.map((link, index) => (
-            <div key={index} className={styles.linkGroup}>
-              <input
-                className={styles.input}
-                type="text"
-                placeholder="Link Title"
-                value={link.title}
-                onChange={(e) =>
-                  handleLinkChange(index, 'title', e.target.value)
-                }
-              />
-              <input
-                className={styles.input}
-                type="url"
-                placeholder="Link URL"
-                value={link.url}
-                onChange={(e) =>
-                  handleLinkChange(index, 'url', e.target.value)
-                }
-              />
-              <div className={styles.parameters}>
-                <h4 className={styles.subheading}>Parameters</h4>
+            <div
+              key={index}
+              className="bg-gray-100 p-6 rounded shadow-sm space-y-6"
+            >
+              <div className="flex flex-col space-y-3">
+                <label
+                  className="text-gray-700 font-medium"
+                  htmlFor={`link-title-${index}`}
+                >
+                  Link Title
+                </label>
+                <input
+                  className="p-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  type="text"
+                  placeholder="Link Title"
+                  value={link.title}
+                  onChange={(e) =>
+                    handleLinkChange(index, 'title', e.target.value)
+                  }
+                />
+              </div>
+              <div className="flex flex-col space-y-3">
+                <label
+                  className="text-gray-700 font-medium"
+                  htmlFor={`link-url-${index}`}
+                >
+                  Link URL
+                </label>
+                <input
+                  className="p-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  type="url"
+                  placeholder="Link URL"
+                  value={link.url}
+                  onChange={(e) =>
+                    handleLinkChange(index, 'url', e.target.value)
+                  }
+                />
+              </div>
+
+              {/* Parameters Section */}
+              <div className="space-y-3">
+                <h4 className="text-lg font-medium text-gray-600">
+                  Parameters
+                </h4>
                 {link.parameters.map((param, paramIndex) => (
-                  <div key={paramIndex} className={styles.parameterGroup}>
+                  <div key={paramIndex} className="flex space-x-3">
                     <input
-                      className={styles.inputSmall}
+                      className="p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500 flex-1"
                       type="text"
                       placeholder="Param Name"
                       value={param.name}
@@ -186,7 +227,7 @@ const AppForm = () => {
                       }
                     />
                     <input
-                      className={styles.inputSmall}
+                      className="p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500 flex-1"
                       type="text"
                       placeholder="Param Value"
                       value={param.value}
@@ -200,7 +241,7 @@ const AppForm = () => {
                       }
                     />
                     <button
-                      className={styles.removeButton}
+                      className="p-3 bg-red-500 text-white rounded hover:bg-red-600"
                       type="button"
                       onClick={() => handleRemoveParameter(index, paramIndex)}
                     >
@@ -209,15 +250,16 @@ const AppForm = () => {
                   </div>
                 ))}
                 <button
-                  className={styles.addButton}
+                  className="p-3 bg-blue-500 text-white rounded hover:bg-blue-600"
                   type="button"
                   onClick={() => handleAddParameter(index)}
                 >
                   Add Parameter
                 </button>
               </div>
+
               <button
-                className={styles.removeButton}
+                className="p-3 mt-4 bg-red-500 text-white rounded hover:bg-red-600 w-full"
                 type="button"
                 onClick={() => handleRemoveLink(index)}
               >
@@ -225,16 +267,24 @@ const AppForm = () => {
               </button>
             </div>
           ))}
-          <button className={styles.addButton} type="button" onClick={handleAddLink}>
+          <button
+            className="p-3 bg-green-500 text-white rounded hover:bg-green-600"
+            type="button"
+            onClick={handleAddLink}
+          >
             Add Link
           </button>
         </div>
-  
-        <button className={styles.submitButton} type="submit">
+
+        <button
+          className="w-full p-4 bg-indigo-500 text-white rounded hover:bg-indigo-600"
+          type="submit"
+        >
           Submit
         </button>
       </form>
     );
+
   };
 
 export default AppForm;
