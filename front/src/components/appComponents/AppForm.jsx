@@ -211,43 +211,36 @@ const AppForm = () => {
                   Parameters
                 </h4>
                 {link.parameters.map((param, paramIndex) => (
-                  <div key={paramIndex} className="flex space-x-3">
-                    <input
-                      className="p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500 flex-1"
-                      type="text"
-                      placeholder="Param Name"
-                      value={param.name}
-                      onChange={(e) =>
-                        handleParameterChange(
-                          index,
-                          paramIndex,
-                          'name',
-                          e.target.value
-                        )
-                      }
-                    />
-                    <input
-                      className="p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500 flex-1"
-                      type="text"
-                      placeholder="Param Value"
-                      value={param.value}
-                      onChange={(e) =>
-                        handleParameterChange(
-                          index,
-                          paramIndex,
-                          'value',
-                          e.target.value
-                        )
-                      }
-                    />
-                    <button
-                      className="p-3 bg-red-500 text-white rounded hover:bg-red-600"
-                      type="button"
-                      onClick={() => handleRemoveParameter(index, paramIndex)}
-                    >
-                      Remove
-                    </button>
-                  </div>
+                  <div
+                  key={paramIndex}
+                  className="flex flex-col md:flex-row gap-3 flex-wrap md:items-center w-full"
+                >
+                  <input
+                    className="flex-1 p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    type="text"
+                    placeholder="Param Name"
+                    value={param.name}
+                    onChange={(e) =>
+                      handleParameterChange(index, paramIndex, "name", e.target.value)
+                    }
+                  />
+                  <input
+                    className="flex-1 p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    type="text"
+                    placeholder="Param Value"
+                    value={param.value}
+                    onChange={(e) =>
+                      handleParameterChange(index, paramIndex, "value", e.target.value)
+                    }
+                  />
+                  <button
+                    className="p-3 bg-red-500 text-white rounded hover:bg-red-600 w-full md:w-auto"
+                    type="button"
+                    onClick={() => handleRemoveParameter(index, paramIndex)}
+                  >
+                    Remove
+                  </button>
+                </div>
                 ))}
                 <button
                   className="p-3 bg-blue-500 text-white rounded hover:bg-blue-600"

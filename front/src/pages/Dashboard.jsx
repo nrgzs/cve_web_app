@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from '../components/navbar/navbar';
+import Navbar from '../components/navbar/navbar.jsx';
 import CveSection from './CveSection';
 
 const Dashboard = () => {

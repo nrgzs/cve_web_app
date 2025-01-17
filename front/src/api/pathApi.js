@@ -6,6 +6,7 @@ export const pathApi = createApi({
   endpoints: (builder) => ({
     getPaths: builder.query({
       query: () => '/path',
+      providesTags:['path']
     }),
     addPath: builder.mutation({
       query: (newApp) => ({
@@ -13,12 +14,14 @@ export const pathApi = createApi({
         method: 'POST',
         body: newApp,
       }),
+      invalidatesTags: ['path'],
     }),
     deletePath: builder.mutation({
       query: (id) => ({
         url: `/path/${id}`,
         method: 'DELETE',
       }),
+      invalidatesTags: ['path'],
     }),
   }),
 });

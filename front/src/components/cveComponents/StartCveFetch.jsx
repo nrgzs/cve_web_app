@@ -2,20 +2,21 @@ import React, { useState } from "react";
 import { useInitializeFetchMutation } from "../../api/cveApi.js";
 import Button from "../../utils/button.jsx";
 
-const StartCveFetch = () => {
+const StartCveFetch = ({setFetchStatus}) => {
   const [initializeFetch] = useInitializeFetchMutation();
 
   const handleFetch = async () => {
     try {
-      initializeFetch();
+      const response = await initializeFetch().unwrap(); // Get response data
+      setFetchStatus(response.fetchStatus); // Update parent fetchStatus state
     } catch (err) {
-      setError(err.message);
+      console.error("Error starting fetch service:", err);
     }
   };
 
   return (
     <div>
-      <Button onClick={handleFetch} label={"start cve service"} />
+      <Button onClick={handleFetch} label={"Start CVE Service"} bgcolor="green" />
     </div>
   );
 };

@@ -2,20 +2,21 @@ import React, { useState } from "react";
 import Button from "../../utils/button.jsx";
 import { useStopInitializeFetchServiceMutation } from "../../api/cveApi.js";
 
-const StopCveFetch = () => {
+const StopCveFetch = ({setFetchStatus}) => {
   const [stopInitializeFetch] = useStopInitializeFetchServiceMutation();
 
   const handleFetch = async () => {
     try {
-        stopInitializeFetch();
+      const response = await stopInitializeFetch().unwrap(); // Get response data
+      setFetchStatus(response.fetchStatus); // Update parent fetchStatus state
     } catch (err) {
-      setError(err.message);
+      console.error("Error stopping fetch service:", err);
     }
   };
 
   return (
     <div>
-      <Button onClick={handleFetch} label={"stop cve service"} />
+      <Button onClick={handleFetch} label={"Stop CVE Service"} bgcolor="red" />
     </div>
   );
 };

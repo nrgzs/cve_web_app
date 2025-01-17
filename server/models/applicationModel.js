@@ -19,6 +19,10 @@ const Application = sequelize.define("Application", {
     allowNull: false,
     unique: true, // Prevent duplicate entries for the same cpe_name
   },
+  flagSearch: {
+    type: DataTypes.INTEGER, 
+    allowNull: true,
+  },
 });
 
 // Additional Links Model

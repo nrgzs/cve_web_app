@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom'; // Importing Link component from react-router-dom
 import styles from './Navbar.module.css'; // Importing the styles for the navbar
-import AppSection from '../../pages/AppSection';
-import PathSection from '../../pages/pathSection';
+import AppSection from '../../pages/AppSection.jsx';
+import PathSection from '../../pages/PathSection.jsx';
 
 const Navbar = () => {
   const [activeComponent, setActiveComponent] = useState('AppList');

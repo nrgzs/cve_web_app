@@ -6,6 +6,8 @@ export const appApi = createApi({
   endpoints: (builder) => ({
     getApps: builder.query({
       query: () => '/app',
+      providesTags:['app']
+
     }),
     addApp: builder.mutation({
       query: (newApp) => ({
@@ -13,12 +15,14 @@ export const appApi = createApi({
         method: 'POST',
         body: newApp,
       }),
+      invalidatesTags: ['app'],
     }),
     deleteApp: builder.mutation({
       query: (id) => ({
         url: `/app/${id}`,
         method: 'DELETE',
       }),
+      invalidatesTags: ['app'],
     }),
   }),
 });

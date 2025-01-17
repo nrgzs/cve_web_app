@@ -5,7 +5,7 @@ let task =null
 export function cronHelper(action) {
   let isRunning = false;
 
-  task = cron.schedule("* * * * *", async () => {
+  task = cron.schedule("*/2 * * * *", async () => {
     if (isRunning) {
       console.log("Previous task is still running. Skipping this minute.");
       return;

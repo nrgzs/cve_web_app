@@ -90,33 +90,32 @@ const PathForm = () => {
        <div className="space-y-4">
          <h3 className="text-lg font-semibold text-gray-700">Parameters</h3>
          {parameters.map((param, index) => (
-           <div key={index} className="flex space-x-2">
-             <input
-               className="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500 flex-1"
-               type="text"
-               placeholder="Param Name"
-               value={param.name}
-               onChange={(e) =>
-                 handleParameterChange(index, 'name', e.target.value)
-               }
-             />
-             <input
-               className="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500 flex-1"
-               type="text"
-               placeholder="Param Value"
-               value={param.value}
-               onChange={(e) =>
-                 handleParameterChange(index, 'value', e.target.value)
-               }
-             />
-             <button
-               className="p-2 bg-red-500 text-white rounded hover:bg-red-600"
-               type="button"
-               onClick={() => handleRemoveParameter(index)}
-             >
-               Remove
-             </button>
-           </div>
+        <div
+        key={index}
+        className="flex flex-wrap gap-2 sm:space-x-2 sm:flex-nowrap items-center w-full"
+      >
+        <input
+          className="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500 flex-1 min-w-0"
+          type="text"
+          placeholder="Param Name"
+          value={param.name}
+          onChange={(e) => handleParameterChange(index, "name", e.target.value)}
+        />
+        <input
+          className="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500 flex-1 min-w-0"
+          type="text"
+          placeholder="Param Value"
+          value={param.value}
+          onChange={(e) => handleParameterChange(index, "value", e.target.value)}
+        />
+        <button
+          className="p-2 bg-red-500 text-white rounded hover:bg-red-600 flex-shrink-0"
+          type="button"
+          onClick={() => handleRemoveParameter(index)}
+        >
+          Remove
+        </button>
+      </div>
          ))}
          <button
            className="p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
