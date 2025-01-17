@@ -26,40 +26,38 @@ const FilterComponent = ({ cveDataList, onFilteredData }) => {
   };
 
   return (
-    <div className="flex flex-col gap-4 p-4 border border-gray-300 rounded-lg shadow-md bg-white">
-      <h2 className="text-xl font-bold text-gray-800 mb-4">Filter CVEs</h2>
-
-      <div className="flex flex-col gap-2">
-        <input
-          type="text"
-          className="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          placeholder="Filter by App Product"
-          value={appProductFilter}
-          onChange={(e) => setAppProductFilter(e.target.value)}
-        />
-        <input
-          type="text"
-          className="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          placeholder="Filter by Vendor"
-          value={vendorFilter}
-          onChange={(e) => setVendorFilter(e.target.value)}
-        />
-        <input
-          type="text"
-          className="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          placeholder="Filter by Version"
-          value={versionFilter}
-          onChange={(e) => setVersionFilter(e.target.value)}
-        />
-      </div>
-
-      <button
-        onClick={handleFilterChange}
-        className="mt-4 p-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
-      >
-        Apply Filters
-      </button>
+    <div className="p-3 bg-white border border-gray-300 rounded-lg shadow-sm">
+    <div className="flex flex-col gap-3">
+      <input
+        type="text"
+        className="p-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500 text-sm"
+        placeholder="App Product"
+        value={appProductFilter}
+        onChange={(e) => setAppProductFilter(e.target.value)}
+      />
+      <input
+        type="text"
+        className="p-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500 text-sm"
+        placeholder="Vendor"
+        value={vendorFilter}
+        onChange={(e) => setVendorFilter(e.target.value)}
+      />
+      <input
+        type="text"
+        className="p-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500 text-sm"
+        placeholder="Version"
+        value={versionFilter}
+        onChange={(e) => setVersionFilter(e.target.value)}
+      />
     </div>
+  
+    <button
+      onClick={handleFilterChange}
+      className="mt-3 w-full p-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 text-sm"
+    >
+      Apply Filters
+    </button>
+  </div>
   );
 };
 
