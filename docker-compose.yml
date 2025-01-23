@@ -1,7 +1,7 @@
-
 version: '3.9'
 
 services:
+  # Frontend service
   front:
     build:
       context: ./front
@@ -14,8 +14,10 @@ services:
     volumes:
       - ./front:/src/app
       - /src/app/node_modules
-    command: npm run dev 
+    command: npm run dev
+ 
 
+  # Backend service (server)
   server:
     build:
       context: ./server
@@ -32,12 +34,15 @@ services:
       - DB_PORT=5432
       - DB_NAME=cve_app
     volumes:
-      - ./server:/app  # Mount the backend code for live reload
-      - /app/node_modules  # Prevent overwriting node_modules inside container
-    command: npm run dev 
+      - ./server:/app
+      - /app/node_modules
+    command: npm run dev
+    env_file:
+      - ./server/.env
     depends_on:
       - postgres
 
+  # PostgreSQL database service
   postgres:
     image: postgres:latest
     container_name: postgres_container_new
@@ -50,6 +55,8 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+
+  # pgAdmin service (optional for DB management)
   pgadmin:
     image: dpage/pgadmin4
     container_name: pgadmin_container_new
@@ -61,8 +68,11 @@ services:
     depends_on:
       - postgres
 
+
 volumes:
   postgres_data:
+
+
 
 
 # version: "3.8"
