@@ -7,7 +7,7 @@ export async function createApplication(applicationData) {
     const { additional_links, ...applicationFields } = applicationData;
 
     // Create the Application
-    const application = await Application.create({...applicationFields, flagsearch:0});
+    const application = await Application.create({...applicationFields, flagSearch:0});
   
     // Save Additional Links (if provided)
     if (additional_links && additional_links.length > 0) {
@@ -16,7 +16,7 @@ export async function createApplication(applicationData) {
         url: link.url,
         parameters: link.parameters, // Save parameters directly
         applicationId: application.id, // Link to the application
-
+        flagSearch:0
       }));
   
       // Bulk create additional links

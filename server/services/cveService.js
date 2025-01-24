@@ -91,41 +91,65 @@ export const fetchDynamicCveData = async (appId) => {
 export async function fetchveDataForAllApps() {
   const regex = /CVE-\d{4}-\d{4,7}/gi;
 
-  const allApps = await getApplications();
-  const paths = await Path.findAll();
+  try {
+    const allApps = await getApplications();
+    const paths = await Path.findAll();
 
-  for (let app of allApps) {
-    for (let path of paths) {
-      const pathUrl = handlePathUrl(path, app);
-      // Fetch CVE data from the external API
-      let setAlert = path.flagSearch && app.flagSearch ? true : false;
-      console.log("SET ALERT DJRYDKYFDKD  " + setAlert);
+    for (let app of allApps) {
+      console.log(`Processing app ${app.id} with ${paths.length} paths...`);
 
-      await fetchInitialCveData(app.id, setAlert);
-      await staticCrawl(app, pathUrl, regex, setAlert); //app, url, regex=/CVE-\
-      await dynamicCrawl(app, pathUrl, regex, setAlert);
-    }
-    if (app.additionalLinks.length) {
-      for (let path of app.additionalLinks) {
-        const pathUrl = handlePathUrl(path, app);
-        let setAlert = path.flagSearch ? true : false;
+      await Promise.all(
+        paths.map(async (path) => {
+          const pathUrl = handlePathUrl(path, app);
+          let setAlert = path.flagSearch && app.flagSearch ? true : false;
 
-        // Fetch CVE data from the external API
-        staticCrawl(app, pathUrl, regex, setAlert); //app, url, regex=/CVE-\
-        dynamicCrawl(app, pathUrl, regex, setAlert);
-        path.flagSearch += 1;
-        await path.save();
+          try {
+            console.log(`Processing path ${pathUrl} for app ${app.id}`);
+            await fetchInitialCveData(app.id, setAlert);
+            await staticCrawl(app, pathUrl, regex, setAlert);
+            await dynamicCrawl(app, pathUrl, regex, setAlert);
+          } catch (error) {
+            console.error(`Error processing path ${pathUrl} for app ${app.id}:`, error);
+          }
+        })
+      );
+
+      if (app.additionalLinks.length) {
+        await Promise.all(
+          app.additionalLinks.map(async (path) => {
+            const pathUrl = handlePathUrl(path, app);
+            let setAlert = path.flagSearch ? true : false;
+
+            try {
+              await staticCrawl(app, pathUrl, regex, setAlert);
+              await dynamicCrawl(app, pathUrl, regex, setAlert);
+              path.flagSearch += 1;
+              await path.save();
+            } catch (error) {
+              console.error(`Error processing additional path ${pathUrl}:`, error);
+            }
+          })
+        );
       }
+
+      app.flagSearch += 1;
+      await app.save();
     }
-    app.flagSearch += 1;
-    await app.save();
+
+    await Promise.all(
+      paths.map(async (p) => {
+        p.flagSearch += 1;
+        await p.save();
+      })
+    );
+
+    console.log("CVE data fetching completed.");
+  } catch (error) {
+    console.error("Error in fetchveDataForAllApps:", error);
   }
-  paths.map(async (p) => {
-    p.flagSearch += 1;
-    await p.save();
-  });
-  
 }
+
+
 
 export async function initializeFetchService() {
   cronHelper(fetchveDataForAllApps);

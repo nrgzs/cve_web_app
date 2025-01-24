@@ -13,8 +13,13 @@ export function cronHelper(action) {
   
     isRunning = true;
     console.log("Running scheduled CVE fetch...");
-    await action();
-    isRunning = false;
+    try {
+      await action();
+    } catch (error) {
+      console.error("Error in scheduled task:", error);
+    } finally {
+      isRunning = false;
+    }
   });
 }
 
