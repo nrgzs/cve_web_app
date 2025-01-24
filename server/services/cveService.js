@@ -35,9 +35,11 @@ export const fetchInitialCveData = async (appId, onAlert = false) => {
       `https://cvedb.shodan.io/cves?cpe23=${app?.cpe_name}`
     );
 
+    const cveUrl = `https://cvedb.shodan.io/cpe/${app?.cpe_name}`;
+
     if (data && data.cves) {
       // Save the fetched CVEs to the database
-      await saveCveToDatabase(data.cves, "shodan", app, onAlert);
+      await saveCveToDatabase(data.cves, cveUrl, app, onAlert);
 
       console.log(`CVE data saved for application: ${app.product}`);
       return data;

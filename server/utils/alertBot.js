@@ -22,12 +22,12 @@ const bot = new TelegramBot(token, { polling: true });
 bot.on('message', (msg) => {
   console.log('Received message from chat ID:', msg.chat.id);
 });
-// const message = '🚨 Test Alert: Bot is working correctly!';
+const message = '🚨 Test Alert: Bot is working correctly!';
 
-// bot
-//   .sendMessage(chatId, message)
-//   .then(() => console.log('Message sent successfully!'))
-//   .catch((error) => console.error('Error sending message:', error));
+bot
+  .sendMessage(chatId, message)
+  .then(() => console.log('Message sent successfully!'))
+  .catch((error) => console.error('Error sending message:', error));
 
 export async function sendAlert(cve,product) {
   const message = `🚨 New CVE Detected!\n\nID: ${cve}\nDescription: ${product}`;
