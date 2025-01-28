@@ -8,7 +8,6 @@ const PathList = () => {
 
   if (isLoading) return <Loader />;
   if (error) return <p>Error fetching path.</p>;
-console.log(paths);
 
   return (
      <div className="overflow-y-scroll h-44 border-b-2 border-indigo-200">

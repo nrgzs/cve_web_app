@@ -47,6 +47,7 @@ let sequelize= new Sequelize({
 // Sync the database
 async function initializeDatabase() {
   await sequelize.sync({ alter: true }); // Use `alter: true` for auto-migration
+  
   console.log("Database synchronized with PostgreSQL");
 }
 

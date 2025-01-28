@@ -8,7 +8,6 @@ const AppList = () => {
 
   if (isLoading) return <Loader />;
   if (error) return <p>Error fetching apps.</p>;
-  console.log(apps);
 
   return (
     <div className="overflow-y-scroll h-full border-b-2 border-indigo-200">
